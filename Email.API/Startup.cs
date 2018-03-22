@@ -2,6 +2,8 @@
 using Email.API.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,10 +28,11 @@ namespace Email.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
+
             services.AddMvc()
                 .AddMvcOptions(o => o.OutputFormatters.Add(
                     new XmlDataContractSerializerOutputFormatter()));
-
 #if DEBUG
             services.AddTransient<ISendEmailRepository, SendEmailRepository>();
 #else
@@ -46,6 +49,10 @@ namespace Email.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(
+                options => options.WithOrigins("http://www.dynamicsolutions.tech").AllowAnyMethod()
+            );
 
             app.UseMvc(routes =>
             {
