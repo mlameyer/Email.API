@@ -51,7 +51,11 @@ namespace Email.API
             }
 
             app.UseCors(
-                options => options.WithOrigins("http://www.dynamicsolutions.tech").AllowAnyMethod()
+                //options => options.WithOrigins("http://www.dynamicsolutions.tech").AllowAnyMethod()
+                options => options.AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowAnyOrigin()
+                .AllowCredentials()
             );
 
             app.UseMvc(routes =>

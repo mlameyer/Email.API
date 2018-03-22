@@ -15,9 +15,21 @@ namespace Email.API.Controllers
         }
         // PUT api/values/5
         [HttpPost()]
-        public void Post(string name, string sendEmailAddress, string subject, string message)
+        public IActionResult Post(string name, string sendEmailAddress, string subject, string message)
         {
-            _sendEmailRepository.SendEmail(name, sendEmailAddress, subject, message);
+            if(name == null || sendEmailAddress == null)
+            {
+                return BadRequest();
+            }
+
+            var result = _sendEmailRepository.SendEmail(name, sendEmailAddress, subject, message);
+
+            if(!result)
+            {
+                return StatusCode(500, "A problem happened while handling your request.");
+            }
+
+            return NoContent();
         }
     }
 }

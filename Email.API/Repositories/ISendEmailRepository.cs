@@ -7,6 +7,6 @@ namespace Email.API.Repositories
 {
     public interface ISendEmailRepository
     {
-        void SendEmail(string name, string sendEmailAddress, string subject, string message);
+        bool SendEmail(string name, string sendEmailAddress, string subject, string message);
     }
 }
