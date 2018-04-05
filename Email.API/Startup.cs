@@ -51,7 +51,7 @@ namespace Email.API
             }
 
             app.UseCors(
-                options => options.WithOrigins("http://www.dynamicsolutions.tech")
+                options => options.WithOrigins("https://dynamicsolutions.azurewebsites.net")
                 .AllowAnyMethod()
                 .AllowAnyHeader()
             );
